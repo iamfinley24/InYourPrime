@@ -17,3 +17,21 @@ public class FactorService {
 		return null;
 	}
 }
+
+
+/*
+ * interceptor/filter
+ * request handlers (cxf)
+ * http filters (j2ee)
+ * 
+ * webinf filter
+ * request response and chain
+ * chain.dochain or something like that
+ * 
+ * 
+ * response www-authenticate:basic
+ * 
+ *  client
+ *  jax-rs makes it easy on server side
+ *  
+ */

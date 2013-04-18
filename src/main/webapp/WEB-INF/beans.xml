@@ -8,18 +8,17 @@
        http://cxf.apache.org/jaxrs http://cxf.apache.org/schemas/jaxrs.xsd
        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
  
-    <import resource="classpath:META-INF/cxf/cxf.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-extension-jaxrs-binding.xml"/>
-    <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
  
     <context:component-scan base-package="edu.neumont.java3"/>
  
  <import resource="classpath:META-INF/cxf/cxf.xml"/>
  <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
  
-    <jaxrs:server id="restContainer" address="/">
+    <jaxrs:server id="FactorService" address="/">
         <jaxrs:serviceBeans>
-            <ref bean="FactorService"/>
+           <ref bean="serviceBean"/>
         </jaxrs:serviceBeans>
-    </jaxrs:server>
+     </jaxrs:server>
+      
+     <bean id="serviceBean" class="edu.neumont.java3.factor.service.FactorService"/> 
 </beans>
