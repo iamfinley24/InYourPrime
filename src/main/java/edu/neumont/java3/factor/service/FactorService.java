@@ -1,14 +1,14 @@
 package edu.neumont.java3.factor.service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.core.Response;
+import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.MediaType;
 
-import org.apache.cxf.configuration.security.AuthorizationPolicy;
-import org.apache.cxf.jaxrs.ext.RequestHandler;
-import org.apache.cxf.jaxrs.model.ClassResourceInfo;
-import org.apache.cxf.message.Message;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,50 +16,43 @@ import org.springframework.stereotype.Service;
 public class FactorService {
 
 	@GET
-	@Produces("text/plain")
-	public boolean factor(){
-		
-		return true;
+	@Produces({"application/xml", "application/JSON"})
+	public Container factor(@QueryParam("number") long number) {
+		return primeFactors(number);
 	}
-	
-	
-	public class AuthenticationHandler implements RequestHandler {
 
-	    public Response handleRequest(Message m, ClassResourceInfo resourceClass) {
-	        AuthorizationPolicy policy = (AuthorizationPolicy)m.get(AuthorizationPolicy.class);
-	        String username = policy.getUserName();
-	        String password = policy.getPassword(); 
-	        if (isAuthenticated(username, password)) {
-	            //TODO on with the request
-	            return null;
-	        } else {
-	            return Response.status(401).header("WWW-Authenticate", "Basic").build();
-	        }
-	    }
-
-		private boolean isAuthenticated(String username, String password) {
-			return ( username == "abc123" && password == "password");
+	public static Container primeFactors(long number) {
+		long n = number;
+		Container returnObject = new Container();
+		ArrayList<Long> factors = new ArrayList<Long>();
+		for (long i = 2; i <= n / i; i++) {
+			while (n % i == 0) {
+				factors.add(i);
+				n /= i;
+				if (factors.size() == 2) {
+					returnObject.yourlist = factors;
+					return returnObject;
+				}
+			}
 		}
-
+		if (n > 1) {
+			factors.add(n);
+		}
+		returnObject.yourlist = factors;
+		return returnObject;
 	}
+
 }
 
-
 /*
- * interceptor/filter
- * request handlers (cxf)
- * http filters (j2ee)
+ * interceptor/filter request handlers (cxf) http filters (j2ee)
  * 
- * WHITELIST 
+ * WHITELIST
  * 
- * webinf filter
- * request response and chain
- * chain.dochain or something like that
+ * webinf filter request response and chain chain.dochain or something like that
  * 
  * 
  * response www-authenticate:basic
  * 
- *  client
- *  jax-rs makes it easy on server side
- *  
+ * client jax-rs makes it easy on server side
  */

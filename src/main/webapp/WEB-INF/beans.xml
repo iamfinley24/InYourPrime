@@ -14,11 +14,17 @@
  <import resource="classpath:META-INF/cxf/cxf.xml"/>
  <import resource="classpath:META-INF/cxf/cxf-servlet.xml"/>
  
+ <bean id="jacksonJson" class="org.codehaus.jackson.jaxrs.JacksonJsonProvider"/>
+ 
     <jaxrs:server id="FactorService" address="/">
         <jaxrs:serviceBeans>
            <ref bean="serviceBean"/>
         </jaxrs:serviceBeans>
+        <jaxrs:providers>
+        	<ref bean="authBean"/>
+        	<ref bean ="jacksonJson"/>
+        </jaxrs:providers>
      </jaxrs:server>
-      
+      <bean id="authBean" class="edu.neumont.java3.factor.service.AuthenticationHandler"/>
      <bean id="serviceBean" class="edu.neumont.java3.factor.service.FactorService"/> 
 </beans>
