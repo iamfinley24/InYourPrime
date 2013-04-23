@@ -18,7 +18,9 @@ public class FactorService {
 	@GET
 	@Produces({"application/xml", "application/JSON"})
 	public Container factor(@QueryParam("number") long number) {
-		return primeFactors(number);
+		Container ret = primeFactors(number);
+		ret.id = number;
+		return ret;
 	}
 
 	public static Container primeFactors(long number) {
@@ -29,7 +31,7 @@ public class FactorService {
 			while (n % i == 0) {
 				factors.add(i);
 				n /= i;
-				if (factors.size() == 2) {
+				if (factors.size() == 30) {
 					returnObject.yourlist = factors;
 					return returnObject;
 				}

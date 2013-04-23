@@ -15,7 +15,6 @@ public class AuthenticationHandler implements RequestHandler {
 		if (policy != null) {
 			String username = policy.getUserName();
 			String password = policy.getPassword();
-		
 			if (isAuthenticated(username, password)) {
 				//on with the request
 				return null;
